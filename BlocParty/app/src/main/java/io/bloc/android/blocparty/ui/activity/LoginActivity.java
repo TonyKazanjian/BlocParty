@@ -59,7 +59,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.blocparty_login);
+        setContentView(R.layout.login_activity);
 
         // Find the Facebook log in button.
         mFacebookLoginButton = (SignInButton) findViewById(R.id.login_button);
