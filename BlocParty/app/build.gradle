@@ -50,5 +50,4 @@ android {
     }
 }
 dependencies {
-    compile 'com.sachinhandiekar:jInstagram:1.0.10'
 }
