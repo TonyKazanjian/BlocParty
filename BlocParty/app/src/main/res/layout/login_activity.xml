@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:toggle="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
+        android:id="@+id/facebook_login"
         android:layout_width="211dp"
         android:layout_height="100dp"
         android:layout_marginTop="200dp"
         android:layout_marginBottom="30dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginLeft="50dp"
+        android:layout_gravity="left|top"/>
+
+    <widgets.ToggleButton
+        android:id="@+id/facebook_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_alignRight="@id/facebook_login"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="200dp"
+        toggle:onColor="#f00"
+        toggle:offColor="#ddd"
+        toggle:spotColor="#00f"
+        toggle:offBorderColor="#000"
+        toggle:borderWidth="2dp"/>
 
     <com.twitter.sdk.android.core.identity.TwitterLoginButton
         android:id="@+id/twitter_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_marginLeft="50dp"
+        android:layout_gravity="left|center"/>
+
+    <widgets.ToggleButton
+        android:id="@+id/twitter_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_alignRight="@id/twitter_login_button"
+        android:layout_gravity="center|right"
+        android:layout_marginTop="0dp"
+        toggle:onColor="#f00"
+        toggle:offColor="#ddd"
+        toggle:spotColor="#00f"
+        toggle:offBorderColor="#000"
+        toggle:borderWidth="2dp"/>
 
     <ImageButton
         android:id="@+id/instagram_login_button"
@@ -23,14 +53,22 @@
         android:layout_height="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom = "150dp"
+        android:layout_marginLeft="50dp"
         android:src="@drawable/instagram_normal"
-        android:layout_gravity="center|bottom"
+        android:layout_gravity="left|bottom"
         />
 
-    <ImageView
+    <widgets.ToggleButton
+        android:id="@+id/instagram_toggle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_gravity="right|center_vertical" />
+        android:layout_height="31dp"
+        android:layout_alignRight="@id/instagram_login_button"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="160dp"
+        toggle:onColor="#f00"
+        toggle:offColor="#ddd"
+        toggle:spotColor="#00f"
+        toggle:offBorderColor="#000"
+        toggle:borderWidth="2dp"/>
 
 </FrameLayout>
