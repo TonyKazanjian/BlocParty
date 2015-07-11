@@ -252,7 +252,7 @@ public class InstagramApp {
 
 	public interface OAuthAuthenticationListener {
 		public abstract void onSuccess();
-
+		public abstract void onCancel();
 		public abstract void onFail(String error);
 	}
 }

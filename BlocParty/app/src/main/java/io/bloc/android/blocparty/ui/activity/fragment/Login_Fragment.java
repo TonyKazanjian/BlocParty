@@ -3,8 +3,10 @@ package io.bloc.android.blocparty.ui.activity.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -53,6 +55,8 @@ public class Login_Fragment extends Fragment {
     widgets.ToggleButton facebookToggle;
     widgets.ToggleButton twitterToggle;
     widgets.ToggleButton instagramToggle;
+    SharedPreferences sharedPreferences = null;
+
 
     private static final String TWITTER_KEY = "EMBNCj1Iv4NxCOdTHpNZm1rDo";
     private static final String TWITTER_SECRET = "kditozgdp19bQnh3AzNpDf0eJ7ZNfjXU4Drpa37KTBvC5QdqnI";
@@ -75,6 +79,8 @@ public class Login_Fragment extends Fragment {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+        //setting sharedprefs
+        sharedPreferences = getActivity().getSharedPreferences("loggedIn", Context.MODE_PRIVATE);
         //getting the key hash for Facebook
         try {
             PackageInfo info = getActivity().getPackageManager().getPackageInfo(
@@ -108,7 +114,15 @@ public class Login_Fragment extends Fragment {
         facebookToggle = (widgets.ToggleButton) view.findViewById(R.id.facebook_toggle);
         instagramToggle = (widgets.ToggleButton) view.findViewById(R.id.instagram_toggle);
         twitterToggle = (widgets.ToggleButton) view.findViewById(R.id.twitter_toggle);
-
+        if (sharedPreferences.contains("facebookLogin")) {
+            facebookToggle.setToggleOn();
+        }
+        if (sharedPreferences.contains("twitterLogin")){
+            twitterToggle.setToggleOn();
+        }
+        if (sharedPreferences.contains("instagramLogin")){
+            instagramToggle.setToggleOn();
+        }
         //for twitter
         twitterLoginButton = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
 
@@ -117,18 +131,29 @@ public class Login_Fragment extends Fragment {
             public void success(Result<TwitterSession> result) {
                 Log.d("Twitter login: ", "working");
                 twitterToggle.setToggleOn();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("twitterLogin", true);
+                editor.apply();
             }
 
             @Override
             public void failure(TwitterException exception) {
-                // ... do something
+                twitterToggle.setToggleOff();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("twitterLogin");
+                editor.apply();
             }
         });
 
         twitterToggle.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
             @Override
             public void onToggle(boolean on) {
-                twitterLoginButton.callOnClick();
+                if (on) {
+                    twitterLoginButton.callOnClick();
+                }
+                if (!on) {
+                    Twitter.logOut();
+                }
             }
         });
 
@@ -142,28 +167,39 @@ public class Login_Fragment extends Fragment {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 facebookToggle.setToggleOn();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("facebookLogin", true);
+                editor.apply();
             }
 
             @Override
             public void onCancel() {
-                facebookToggle.setToggleOff();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("facebookLogin");
+                editor.apply();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                // App code
+                facebookToggle.setToggleOff();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("facebookLogin");
+                editor.apply();
             }
         });
+
         facebookToggle.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
             @Override
             public void onToggle(boolean on) {
-                facebookLogin.callOnClick();
+                if(on)
+                facebookToggle.callOnClick();
+                if(!on)
+                    facebookToggle.callOnClick();
             }
         });
 
         // for instagram
-        instagramLoginButton = (ImageButton) view.findViewById(R.id.instagram_login_button);
-
+        instagramLoginButton = (ImageButton) view.findViewById(R.id.instagram_login_button);;
         instagramLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,9 +234,11 @@ public class Login_Fragment extends Fragment {
 
             @Override
             public void onToggle(boolean on) {
-               instagramLoginButton.callOnClick();
-            }
-
+                if(on)
+                    instagramLoginButton.callOnClick();
+                if(!on)
+                    instagramLoginButton.callOnClick();
+                }
         });
         return view;
     }
@@ -209,11 +247,24 @@ public class Login_Fragment extends Fragment {
         @Override
         public void onSuccess() {
             instagramToggle.setToggleOn();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("instagramLogin",true);
+            editor.apply();
         }
-
+        @Override
+        public void onCancel(){
+            instagramToggle.setToggleOff();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("instagramLogin");
+            editor.apply();
+        }
         @Override
         public void onFail(String error) {
             Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            instagramToggle.setToggleOff();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("instagramLogin");
+            editor.apply();
         }
     };
 
