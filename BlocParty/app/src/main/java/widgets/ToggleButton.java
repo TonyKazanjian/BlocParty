@@ -1,7 +1,6 @@
 package widgets;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -10,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -101,11 +99,11 @@ public class ToggleButton extends View{
 		this.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				SharedPreferences sharedPreferences = PreferenceManager
-						.getDefaultSharedPreferences(getContext());
-				SharedPreferences.Editor editor = sharedPreferences.edit();
-				editor.putBoolean("toggleButton", ToggleButton.this.isActivated());
-				editor.apply();
+//				SharedPreferences sharedPreferences = PreferenceManager
+//						.getDefaultSharedPreferences(getContext());
+//				SharedPreferences.Editor editor = sharedPreferences.edit();
+//				editor.putBoolean("toggleButton", ToggleButton.this.isActivated());
+//				editor.apply();
 				toggle(defaultAnimate);
 			}
 		});

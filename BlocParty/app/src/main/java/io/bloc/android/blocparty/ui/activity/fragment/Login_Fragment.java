@@ -174,6 +174,7 @@ public class Login_Fragment extends Fragment {
 
             @Override
             public void onCancel() {
+                facebookToggle.setToggleOff();
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.remove("facebookLogin");
                 editor.apply();
@@ -192,9 +193,10 @@ public class Login_Fragment extends Fragment {
             @Override
             public void onToggle(boolean on) {
                 if(on)
-                facebookToggle.callOnClick();
+                facebookLogin.callOnClick();
                 if(!on)
-                    facebookToggle.callOnClick();
+                    facebookLogin.callOnClick();
+
             }
         });
 
