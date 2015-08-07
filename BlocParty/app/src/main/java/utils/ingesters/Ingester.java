@@ -1,6 +1,6 @@
 package utils.ingesters;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import api.model.ImagePost;
 
@@ -9,5 +9,5 @@ import api.model.ImagePost;
  */
 public interface Ingester {
 
-    public ArrayList<ImagePost> ingest();
+    public List<ImagePost> ingest();
 }

@@ -5,11 +5,7 @@ package api.model;
  */
 public class ImagePost {
 
-    //one field is an image
-    //name of the image
-    //source
-    //person who posted
-    //caption
+    //a transfer object
 
     private String imageURL;
     private String imageName;

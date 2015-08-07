@@ -40,6 +40,7 @@ import java.security.NoSuchAlgorithmException;
 import io.bloc.android.blocparty.R;
 import io.fabric.sdk.android.Fabric;
 import utils.InstagramApp;
+import utils.ingesters.ImageIngester;
 import widgets.ToggleButton;
 
 
@@ -166,6 +167,8 @@ public class Login_Fragment extends Fragment {
         facebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                ImageIngester ingester = new ImageIngester();
+                ingester.ingest();
                 facebookToggle.setToggleOn();
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("facebookLogin", true);

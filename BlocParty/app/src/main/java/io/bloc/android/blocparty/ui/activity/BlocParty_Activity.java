@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -51,7 +52,8 @@ public class
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        // App code
+//                        ImageIngester ingester = new ImageIngester();
+//                        ingester.ingest();
                     }
 
                     @Override
@@ -61,7 +63,8 @@ public class
 
                     @Override
                     public void onError(FacebookException exception) {
-                        // App code
+                        String TAG = new String();
+                        Log.d(TAG, "error");
                     }
                 });
     }
