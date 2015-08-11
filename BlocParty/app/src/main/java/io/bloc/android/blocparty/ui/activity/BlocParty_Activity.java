@@ -52,8 +52,7 @@ public class
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-//                        ImageIngester ingester = new ImageIngester();
-//                        ingester.ingest();
+
                     }
 
                     @Override

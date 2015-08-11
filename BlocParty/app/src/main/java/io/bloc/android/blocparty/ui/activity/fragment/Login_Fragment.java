@@ -160,7 +160,7 @@ public class Login_Fragment extends Fragment {
 
         //for facebook
         facebookLogin = (LoginButton) view.findViewById(R.id.facebook_login);
-        facebookLogin.setReadPermissions("user_friends");
+        facebookLogin.setReadPermissions("user_posts");
         // If using in a fragment
         facebookLogin.setFragment(Login_Fragment.this);
         // Callback registration
@@ -168,7 +168,7 @@ public class Login_Fragment extends Fragment {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 ImageIngester ingester = new ImageIngester();
-                ingester.ingest();
+                ingester.ingest4j();
                 facebookToggle.setToggleOn();
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("facebookLogin", true);
