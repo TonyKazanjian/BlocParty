@@ -40,14 +40,13 @@ import java.security.NoSuchAlgorithmException;
 import io.bloc.android.blocparty.R;
 import io.fabric.sdk.android.Fabric;
 import utils.InstagramApp;
-import utils.ingesters.ImageIngester;
 import widgets.ToggleButton;
 
 
 /**
  * Created by tonyk_000 on 6/23/2015.
  */
-public class Login_Fragment extends Fragment {
+public class LoginFragment extends Fragment {
 
     TwitterLoginButton twitterLoginButton;
     LoginButton facebookLogin;
@@ -64,6 +63,7 @@ public class Login_Fragment extends Fragment {
     private static final String INSTAGRAM_KEY = "db91bf03212344ff89f2cc6995088cc0";
     private static final String INSTAGRAM_SECRET = "714c5647104f43149915207c3d188761";
     private static final String CALLBACK_URL = "http://localhost:8080/BasicWebDemo/handleInstagramToken/";
+
     private CallbackManager callbackManager = new CallbackManager() {
         @Override
         public boolean onActivityResult(int i, int i1, Intent intent) {
@@ -110,7 +110,7 @@ public class Login_Fragment extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_activity, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
         super.onCreateView(inflater, container, savedInstanceState);
         facebookToggle = (widgets.ToggleButton) view.findViewById(R.id.facebook_toggle);
         instagramToggle = (widgets.ToggleButton) view.findViewById(R.id.instagram_toggle);
@@ -162,17 +162,17 @@ public class Login_Fragment extends Fragment {
         facebookLogin = (LoginButton) view.findViewById(R.id.facebook_login);
         facebookLogin.setReadPermissions("user_posts");
         // If using in a fragment
-        facebookLogin.setFragment(Login_Fragment.this);
+        facebookLogin.setFragment(LoginFragment.this);
         // Callback registration
         facebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                ImageIngester ingester = new ImageIngester();
-                ingester.ingest4j();
                 facebookToggle.setToggleOn();
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("facebookLogin", true);
                 editor.apply();
+                PostListFragment fbPosts =  new PostListFragment();
+                LoginFragment.this.getFragmentManager().beginTransaction().replace(R.id.placeholder,fbPosts).commit();
             }
 
             @Override

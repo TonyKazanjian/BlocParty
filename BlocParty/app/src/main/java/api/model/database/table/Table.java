@@ -14,7 +14,7 @@ public abstract class Table {
 
     protected static final String COLUMN_ID = "id"; // each table must possess an ID column
 
-    public abstract String getName();
+    public abstract String getId();
 
     public abstract String getCreateStatement();
 
@@ -23,7 +23,7 @@ public abstract class Table {
     }
 
     public Cursor fetchRow(SQLiteDatabase readOnlyDatabase, long rowId) {
-        return readOnlyDatabase.query(true,getName(), null, COLUMN_ID + " = ?",
+        return readOnlyDatabase.query(true,getId(), null, COLUMN_ID + " = ?",
                 new String[] {String.valueOf(rowId)}, null, null, null, null);
     }
 

@@ -5,50 +5,41 @@ package api.model;
  */
 public class ImagePost {
 
-    //a transfer object
+    //a transfer object for handling calls from the network APIs
 
     private String imageURL;
-    private String imageName;
-    private String imageOwner;
     private String imageCaption;
-    private long imageId;
+    private String imageId;
+    private String imageOwner;
     private long datePosted;
 
 
-    public void setImageURL(String imageURL) {
+    public ImagePost setImageURL(String imageURL) {
         this.imageURL = imageURL;
+        return this;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public ImagePost setImageCaption(String imageCaption) {
+        this.imageCaption = imageCaption;
+        return this;
+    }
+
+    public ImagePost setDatePosted(long datePosted) {
+        this.datePosted = datePosted;
+        return this;
+    }
+
+    public ImagePost setImageId(String imageId) {
+        this.imageId = imageId;
+        return this;
     }
 
     public void setImageOwner(String imageOwner) {
         this.imageOwner = imageOwner;
     }
 
-    public void setImageCaption(String imageCaption) {
-        this.imageCaption = imageCaption;
-    }
-
-    public void setDatePosted(long datePosted) {
-        this.datePosted = datePosted;
-    }
-
-    public void setImageId(long imageId) {
-        this.imageId = imageId;
-    }
-
     public String getImageURL() {
         return imageURL;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public String getImageOwner() {
-        return imageOwner;
     }
 
     public String getImageCaption() {
@@ -59,18 +50,16 @@ public class ImagePost {
         return datePosted;
     }
 
-    public long getImageId() {
+    public String getImageId() {
         return imageId;
     }
 
-    public ImagePost(String imageURL, String imageName, String imageOwner, String imageCaption, long imageId, long datePosted) {
-        this.imageURL = imageURL;
-        this.imageName = imageName;
-        this.imageOwner = imageOwner;
-        this.imageCaption = imageCaption;
-        this.imageId = imageId;
-        this.datePosted = datePosted;
+    public String getImageOwner() {
+        return imageOwner;
     }
 
-
+    public ImagePost(String imageURL, String imageCaption) {
+        this.imageURL = imageURL;
+        this.imageCaption = imageCaption;
+    }
 }

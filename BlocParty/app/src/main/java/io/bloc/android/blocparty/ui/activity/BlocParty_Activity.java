@@ -1,25 +1,31 @@
 package io.bloc.android.blocparty.ui.activity;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
 import io.bloc.android.blocparty.R;
+import io.bloc.android.blocparty.ui.activity.fragment.LoginFragment;
+import io.bloc.android.blocparty.ui.activity.fragment.PostListFragment;
 
 /**
  * Created by tonyk_000 on 6/21/2015.
  */
 public class
         BlocParty_Activity extends FragmentActivity {
+
+    LoginFragment loginFragment = new LoginFragment();
+    PostListFragment postListFragment = new PostListFragment();
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
 
@@ -36,18 +42,18 @@ public class
         callbackManager.onActivityResult(requestCode, resultCode, data);
         // Pass the activity result to the fragment, which will then pass the result to the login
         // button.
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.placeholder);
         if (fragment != null && !fragment.isVisible() && !fragment.isAdded()) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_blocparty);
-
         callbackManager = CallbackManager.Factory.create();
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.placeholder,loginFragment).commit();
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
@@ -62,7 +68,7 @@ public class
 
                     @Override
                     public void onError(FacebookException exception) {
-                        String TAG = new String();
+                        String TAG = BlocParty_Activity.class.getSimpleName();
                         Log.d(TAG, "error");
                     }
                 });
