@@ -26,8 +26,7 @@
             android:id="@+id/tv_image_caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below = "@+id/iv_post_image"
-            android:text = "This is the image caption"/>
+            android:layout_below = "@+id/iv_post_image" />
 
         <ProgressBar
             android:id="@+id/pb_post"

@@ -12,7 +12,7 @@ public interface ImagePostDAO {
     public boolean update(ImagePost transferObject);
 
     //retrive an object from the datasource
-    public ImagePost read();
+    public void read(ImagePostListener listener);
 
     //delete an object from the datasource
     public boolean del();

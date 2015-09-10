@@ -2,7 +2,6 @@ package io.bloc.android.blocparty.ui.activity.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +29,7 @@ import utils.ingesters.ImageIngesterListener;
  * Created by tonyk_000 on 7/23/2015.
  */
 
-//TODO: make sure this class is getting data
-public class PostListFragment extends Fragment implements ImageLoadingListener {
+public class PostListFragment extends Fragment  {
 
    private List<ImagePost>  fbPostList;
    private ImageIngester ingester;
@@ -46,7 +42,7 @@ public class PostListFragment extends Fragment implements ImageLoadingListener {
         public void onSuccess(List<ImagePost> imagePosts) {
             if (imagePosts != null) {
                 postList.setVisibility(View.VISIBLE);
-                errorView.setVisibility(View.GONE);
+                //errorView.setVisibility(View.GONE);
                 PostAdapter postAdapter = new PostAdapter(imagePosts);
                 postList.setLayoutManager(new LinearLayoutManager(getActivity()));
                 postList.setItemAnimator(new DefaultItemAnimator());
@@ -57,7 +53,7 @@ public class PostListFragment extends Fragment implements ImageLoadingListener {
                 getFragmentManager().beginTransaction().replace(R.id.placeholder, loginFragment).commit();
                 Toast.makeText(getActivity(), "Please login to a social network", Toast.LENGTH_LONG).show();
                 postList.setVisibility(View.GONE);
-                errorView.setVisibility(View.VISIBLE);
+                //errorView.setVisibility(View.VISIBLE);
             }
         }
 
@@ -96,34 +92,14 @@ public class PostListFragment extends Fragment implements ImageLoadingListener {
 
     }
 
-    //TODO: set recyclerview with LinearLayout manager
+   //TODO: set with linearlayout manager
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.fragment_postlist, container,false);
-        errorView = (TextView) view.findViewById(R.id.tv_error_test);
+        //errorView = (TextView) view.findViewById(R.id.tv_error_test);
         postList = (RecyclerView)view.findViewById(R.id.rv_postlist);
         postList.setAdapter(postAdapter);
         return view;
-    }
-
-    @Override
-    public void onLoadingStarted(String imageUri, View view) {
-
-    }
-
-    @Override
-    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-    }
-
-    @Override
-    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-
-    }
-
-    @Override
-    public void onLoadingCancelled(String imageUri, View view) {
-
     }
 
 }

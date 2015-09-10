@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -49,15 +51,28 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostAdapterVie
     protected class PostAdapterViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView message;
+        ProgressBar progress;
 
         public PostAdapterViewHolder(View postView) {
             super(postView);
             image = (ImageView) postView.findViewById(R.id.iv_post_image);
             message = (TextView) postView.findViewById(R.id.tv_image_caption);
+            progress = (ProgressBar) postView.findViewById(R.id.pb_post);
         }
 
         public void update(ImagePost imagePost){
-            Picasso.with(image.getContext()).load(imagePost.getImageURL()).into(image);
+            message.setText(imagePost.getImageCaption());
+            Picasso.with(image.getContext()).load(imagePost.getImageURL()).into(image, new Callback() {
+                @Override
+                public void onSuccess() {
+                    progress.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
         }
     }
 

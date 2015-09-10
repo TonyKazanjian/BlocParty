@@ -35,9 +35,11 @@ public class ImagePostSQLiteDBDAO implements ImagePostDAO {
     }
 
     @Override
-    public ImagePost read() {
-        return null;
+    public void read(ImagePostListener listener) {
+
     }
+
+    
 
     @Override
     public boolean del() {
